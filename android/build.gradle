@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+        // You may also need to set the versionCode, versionName, etc.
+    }
+    // Other configuration as needed…
+}
+
+dependencies {
+    // Do not force a specific version; the host app will provide React Native.
+    compileOnly "com.facebook.react:react-native:+"
+    // You might also need to include any other dependencies your native code uses.
+}

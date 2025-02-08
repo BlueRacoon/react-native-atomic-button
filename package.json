@@ -1,0 +1,30 @@
+{
+  "name": "react-native-atomic-button",
+  "version": "1.0.0",
+  "description": "A React Native native atomic button that prevents duplicate clicks.",
+  "main": "index.js",
+"scripts": {
+    "build": "echo 'No build needed – native code and JS are ready'",
+    "test": "echo \"No tests yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlueRacoon/react-native-atomic-button.git"
+  },
+  "keywords": [
+    "react-native",
+    "native",
+    "button",
+    "atomic button"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "author": "Zachary Owen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BlueRacoon/react-native-atomic-button/issues"
+  },
+  "homepage": "https://github.com/BlueRacoon/react-native-atomic-button#readme"
+}
