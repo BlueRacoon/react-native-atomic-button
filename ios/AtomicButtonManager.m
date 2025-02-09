@@ -1,5 +1,6 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
+#import <React/RCTConvert.h>
 #import "AtomicButton.h"
 
 @interface AtomicButtonManager : RCTViewManager
@@ -13,13 +14,22 @@ RCT_EXPORT_MODULE(AtomicButton)
   return [[AtomicButton alloc] initWithFrame:CGRectZero];
 }
 
-// Expose the onPress event to JS.
+// Map the testID prop to iOS accessibilityIdentifier
+RCT_CUSTOM_VIEW_PROPERTY(testID, NSString, AtomicButton)
+{
+  if (json) {
+    view.accessibilityIdentifier = [RCTConvert NSString:json];
+  } else {
+    view.accessibilityIdentifier = nil;
+  }
+}
+
+// Expose the onPress event to JS
 RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 
-// Expose a command to reset the button.
+// Expose a command to reset the button
 RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 {
-  // Obtain the UIManager from the bridge.
   RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
   [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     AtomicButton *button = (AtomicButton *)viewRegistry[reactTag];
