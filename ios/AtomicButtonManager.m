@@ -1,7 +1,9 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTConvert.h>
+#import <React/RCTUIManagerUtils.h>
 #import "AtomicButton.h"
+
 
 @interface AtomicButtonManager : RCTViewManager
 @end
@@ -46,7 +48,7 @@ RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 // This method will trigger the native touch event.
 RCT_EXPORT_METHOD(simulateTap:(nonnull NSNumber *)reactTag)
 {
-  // Dispatch on the UIManager queue instead of the main queue.
+  // Dispatch on the UIManager queue (now properly declared)
   dispatch_async(RCTGetUIManagerQueue(), ^{
     RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
     [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
