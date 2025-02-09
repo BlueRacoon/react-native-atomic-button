@@ -47,16 +47,19 @@ RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 // This method will trigger the native touch event.
 RCT_EXPORT_METHOD(simulateTap:(nonnull NSNumber *)reactTag)
 {
-  RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
-  [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    AtomicButton *button = (AtomicButton *)viewRegistry[reactTag];
-    if ([button isKindOfClass:[AtomicButton class]]) {
-      // This sends the "touch up inside" event to the button.
-      [button sendActionsForControlEvents:UIControlEventTouchUpInside];
-    } else {
-      RCTLogError(@"simulateTap: Expected an AtomicButton, got: %@", button);
-    }
-  }];
+  // Dispatch to the main queue to ensure we're on the correct thread.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
+    [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+      AtomicButton *button = (AtomicButton *)viewRegistry[reactTag];
+      if ([button isKindOfClass:[AtomicButton class]]) {
+        // This sends the "touch up inside" event to the button.
+        [button sendActionsForControlEvents:UIControlEventTouchUpInside];
+      } else {
+        RCTLogError(@"simulateTap: Expected an AtomicButton, got: %@", button);
+      }
+    }];
+  });
 }
 
 @end
