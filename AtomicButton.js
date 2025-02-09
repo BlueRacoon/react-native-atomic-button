@@ -1,4 +1,4 @@
-// File: AtomicButton.js
+// AtomicButton.js
 import React from 'react';
 import { requireNativeComponent, UIManager, findNodeHandle } from 'react-native';
 import PropTypes from 'prop-types';
@@ -17,19 +17,27 @@ class AtomicButton extends React.Component {
     }
   }
 
-  // Expose a method to reset the native button
-  reset() {
-    UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this._ref),
-      UIManager.getViewManagerConfig('AtomicButton').Commands.reset,
-      []
-    );
+  // Expose a method to simulate a native tap.
+  simulateNativeTap() {
+    const viewTag = findNodeHandle(this._ref);
+    if (viewTag) {
+      const config = UIManager.getViewManagerConfig('AtomicButton');
+      if (config && config.Commands && config.Commands.simulateTap != null) {
+        UIManager.dispatchViewManagerCommand(
+          viewTag,
+          config.Commands.simulateTap,
+          [] // no arguments needed
+        );
+      } else {
+        console.warn('simulateTap command not found in AtomicButton configuration');
+      }
+    }
   }
 
   render() {
     return (
       <NativeAtomicButton
-        ref={ref => { this._ref = ref; }}
+        ref={(ref) => { this._ref = ref; }}
         {...this.props}
         onPress={this._onPress}
       >
@@ -42,7 +50,6 @@ class AtomicButton extends React.Component {
 AtomicButton.propTypes = {
   onPress: PropTypes.func,
   style: PropTypes.any,
-  // Add any additional prop types you want to support
 };
 
 export default AtomicButton;

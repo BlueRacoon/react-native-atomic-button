@@ -1,6 +1,6 @@
 {
   "name": "react-native-atomic-button",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A React Native native atomic button that prevents duplicate clicks.",
   "main": "index.js",
 "scripts": {
