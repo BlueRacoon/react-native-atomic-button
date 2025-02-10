@@ -30,6 +30,12 @@
   self.isDisabled = NO;
   self.userInteractionEnabled = YES;
   self.alpha = 1.0;
+  // Force the view to re-layout and redraw.
+  [self setNeedsLayout];
+  [self layoutIfNeeded];
+  [self setNeedsDisplay];
+  // Optionally, log the current alpha to verify
+  RCTLogInfo(@"reset: alpha is now %f", self.alpha);
 }
 
 @end

@@ -56,6 +56,22 @@ class AtomicButton extends React.Component {
     }
   }
 
+  reset() {
+    const viewTag = findNodeHandle(this._ref);
+    if (viewTag) {
+      const config = UIManager.getViewManagerConfig('AtomicButton');
+      if (config && config.Commands && config.Commands.reset != null) {
+        UIManager.dispatchViewManagerCommand(
+          viewTag,
+          config.Commands.reset,
+          []
+        );
+      } else {
+        console.warn('reset command not found in AtomicButton configuration');
+      }
+    }
+  }
+
   render() {
     return (
       <NativeAtomicButton

@@ -40,15 +40,17 @@ RCT_CUSTOM_VIEW_PROPERTY(title, NSString, AtomicButton)
 // Expose the "reset" command (already exists).
 RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 {
-  RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
-  [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    AtomicButton *button = (AtomicButton *)viewRegistry[reactTag];
-    if (![button isKindOfClass:[AtomicButton class]]) {
-      RCTLogError(@"Invalid view returned from registry, expecting AtomicButton, got: %@", button);
-    } else {
+  // Dispatch on the main thread so UI updates are applied immediately.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    if ([view isKindOfClass:[AtomicButton class]]) {
+      AtomicButton *button = (AtomicButton *)view;
+      RCTLogInfo(@"reset: about to reset button: %@", button);
       [button reset];
+    } else {
+      RCTLogError(@"reset: Expected an AtomicButton, got: %@", view);
     }
-  }];
+  });
 }
 
 // simulateTap command as before...
