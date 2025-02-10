@@ -1,24 +1,31 @@
-React Native Atomic Button is a native component designed to prevent duplicate actions in your React Native applications. It is especially useful in scenarios such as e-commerce order submissions, where users on laggy devices might tap the submit button multiple times, triggering multiple backend requests. This component fires its onPress callback only once and then immediately disables itself to ensure that only one action is processed—even if the user (or simulated code) spams the button.
+# React Native Atomic Button
 
-Key Features:
+**React Native Atomic Button** is a native component designed to prevent duplicate actions in your React Native applications. It is especially useful in scenarios such as e-commerce order submissions, where users on laggy devices might tap the submit button multiple times, triggering multiple backend requests. This component fires its onPress callback only once and then immediately disables itself to ensure that only one action is processed—even if the user (or simulated code) spams the button.
 
-Atomic (One-Shot) Behavior: Once pressed, the button disables itself to prevent any subsequent taps.
-Native Integration: Implements native behavior on iOS (and Android if extended) to closely mimic a user’s real touch event.
-Dynamic Styling & Text Injection: Accepts standard React Native style props and a title prop to display text.
-Simulation Methods for Testing: Exposes a method to simulate native taps so you can test burst scenarios.
-Reset Functionality: Includes a method to reset the button so it can be reused (useful for development and testing).
-Table of Contents
-Installation
-Setup
-Usage
-Basic Usage
-Styling and Text Injection
-Resetting the Button
-Testing Multiple Submits
-Compatibility
-Example Code
-Troubleshooting
-License
+> **Key Features:**
+> - **Atomic (One-Shot) Behavior:** Once pressed, the button disables itself to prevent any subsequent taps.
+> - **Native Integration:** Implements native behavior on iOS (and Android if extended) to closely mimic a user’s real touch event.
+> - **Dynamic Styling & Text Injection:** Accepts standard React Native style props and a `title` prop to display text.
+> - **Simulation Methods for Testing:** Exposes a method to simulate native taps so you can test burst scenarios.
+> - **Reset Functionality:** Includes a method to reset the button so it can be reused (useful for development and testing).
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Setup](#setup)
+  - [Expo Projects (Bridgeless Mode)](#expo-projects-bridgeless-mode)
+  - [Plain React Native Projects](#plain-react-native-projects)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Styling and Text Injection](#styling-and-text-injection)
+  - [Resetting the Button](#resetting-the-button)
+- [Testing Multiple Submits](#testing-multiple-submits)
+- [Example Code](#example-code)
+- [Troubleshooting](#troubleshooting)
+- [Compatibility & Considerations](#compatibility--considerations)
+- [How to Download and Get Started](#how-to-download-and-get-started)
+- [License](#license)
+
 Installation
 Using npm
 bash
