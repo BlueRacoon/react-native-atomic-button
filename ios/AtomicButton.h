@@ -7,5 +7,6 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onPress; // Callback for press events
 
 - (void)reset;
+- (void)handlePress;
 
 @end

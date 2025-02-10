@@ -1,9 +1,8 @@
+// atomicbuttonmanager.m
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTConvert.h>
-#import <React/RCTUIManagerUtils.h>
 #import "AtomicButton.h"
-
 
 @interface AtomicButtonManager : RCTViewManager
 @end
@@ -30,6 +29,14 @@ RCT_CUSTOM_VIEW_PROPERTY(testID, NSString, AtomicButton)
 // Expose the onPress event to JS.
 RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 
+// Expose the "title" property
+RCT_CUSTOM_VIEW_PROPERTY(title, NSString, AtomicButton)
+{
+  // Convert json to a string; default to empty if not provided.
+  NSString *title = json ? [RCTConvert NSString:json] : @"";
+  [view setTitle:title forState:UIControlStateNormal];
+}
+
 // Expose the "reset" command (already exists).
 RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 {
@@ -44,22 +51,21 @@ RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
   }];
 }
 
-// **Updated Command: simulateTap**
-// This method will trigger the native touch event.
-RCT_EXPORT_METHOD(simulateTap:(nonnull NSNumber *)reactTag)
+// simulateTap command as before...
+RCT_EXPORT_METHOD(simulateDirectTap:(nonnull NSNumber *)reactTag)
 {
-  // Dispatch on the UIManager queue (now properly declared)
-  dispatch_async(RCTGetUIManagerQueue(), ^{
-    RCTUIManager *uiManager = [self.bridge moduleForName:@"UIManager" lazilyLoadIfNecessary:YES];
-    [uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-      AtomicButton *button = (AtomicButton *)viewRegistry[reactTag];
-      if ([button isKindOfClass:[AtomicButton class]]) {
-        // This sends the "touch up inside" event to the button.
-        [button sendActionsForControlEvents:UIControlEventTouchUpInside];
-      } else {
-        RCTLogError(@"simulateTap: Expected an AtomicButton, got: %@", button);
-      }
-    }];
+  // Dispatch on the main queue.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    // Use the UIManager to get the view by reactTag.
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    if ([view isKindOfClass:[AtomicButton class]]) {
+      AtomicButton *button = (AtomicButton *)view;
+      RCTLogInfo(@"simulateDirectTap: calling handlePress for button: %@", button);
+      // Call handlePress directly.
+      [button handlePress];
+    } else {
+      RCTLogError(@"simulateDirectTap: Expected an AtomicButton, got: %@", view);
+    }
   });
 }
 
