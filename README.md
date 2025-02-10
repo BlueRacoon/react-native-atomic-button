@@ -27,19 +27,31 @@
 - [License](#license)
 
 ## Table of Contents
-Using npm
-bash
-Copy
+### Using npm
+
+```bash 
 npm install react-native-atomic-button
-Using Yarn
-bash
-Copy
+```
+
+### Using Yarn
+
+```bash
 yarn add react-native-atomic-button
+```
+
+After installing, if you are targeting iOS, navigate to your project’s `ios` folder and run:
+
+```bash
+cd ios && pod install && cd ..
+```
+
 After installing, if you are targeting iOS, navigate to your project’s ios folder and run:
 
-bash
-Copy
+
+```bash
 cd ios && pod install && cd ..
+```
+
 Setup
 For Expo Projects (Bridgeless Mode)
 This package is compatible with both plain React Native and Expo projects. In Expo projects, it dynamically uses the NativeModulesProxy from the expo-modules-core package if available. No extra configuration is needed—just ensure you have installed the package as above.
@@ -51,8 +63,7 @@ If you are not using Expo, the package will fall back to using React Native’s 
 Basic Usage
 Import the component and use it in your code:
 
-jsx
-Copy
+```bash
 import React, { useState, useRef } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import AtomicButton from 'react-native-atomic-button';
@@ -100,11 +111,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+```
 ## Styling and Text Injection
 Unlike typical React Native components, custom native components may not automatically render children. Instead, AtomicButton uses a title prop to display text. You can style it using the standard style prop:
 
-jsx
-Copy
+```bash
 <AtomicButton
   onPress={handlePress}
   testID="atomicButton"
@@ -117,23 +128,25 @@ Copy
     alignItems: 'center',
   }}
 />
+```
+
 ## Resetting the Button
 Since the AtomicButton is designed to disable itself after a single tap (to prevent duplicate submissions), you might need to reset it for testing or reusability. You can call the reset method on the component reference:
 
-jsx
-Copy
+```bash
 <Button title="Reset Button" onPress={() => {
   if (atomicButtonRef.current && atomicButtonRef.current.reset) {
     atomicButtonRef.current.reset();
   }
 }} />
+```
+
 ## Testing Multiple Submits
 To simulate a burst of user interactions (for example, due to laggy devices), you can programmatically simulate multiple taps. The component exposes a method called simulateNativeTap() that triggers the native tap simulation.
 
 Here’s a sample function that simulates 20 rapid native taps:
 
-jsx
-Copy
+```bash
 const simulate20NativeTaps = async () => {
   if (atomicButtonRef.current && atomicButtonRef.current.simulateNativeTap) {
     for (let i = 0; i < 20; i++) {
@@ -145,11 +158,14 @@ const simulate20NativeTaps = async () => {
     console.warn("AtomicButton reference is not set.");
   }
 };
+```
+
 Add a button to your TestScreen for simulation:
 
-jsx
-Copy
+```bash
 <Button title="Simulate 20 Native Taps" onPress={simulate20NativeTaps} />
+```
+
 Expected Behavior:
 
 ## Normal Use: 
@@ -158,8 +174,7 @@ Rapid Tapping: Even if you simulate or spam 20 taps, only the first tap is proce
 Example Code
 Below is a complete sample TestScreen demonstrating all of the features:
 
-jsx
-Copy
+```bash
 import React, { useState, useRef } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import AtomicButton from "react-native-atomic-button";
@@ -229,33 +244,39 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+```
+
 How to Download and Get Started
 Download the Package:
 
 ## You can download the package from npm:
 
-bash
-Copy
+```bash
 npm install react-native-atomic-button
+```
+
 or
 
-bash
-Copy
+```bash
 yarn add react-native-atomic-button
+```
+
 Linking (for iOS):
 
 Navigate to your ios folder and run:
 
-bash
-Copy
+```bash
 cd ios && pod install && cd ..
+```
+
 Using the Component:
 
 Import the component in your React Native code:
 
-js
-Copy
+```bash
 import AtomicButton from 'react-native-atomic-button';
+```
+
 For Expo Projects:
 
 No additional linking is needed. The package dynamically uses Expo’s NativeModulesProxy if available.
