@@ -26,7 +26,7 @@
 - [How to Download and Get Started](#how-to-download-and-get-started)
 - [License](#license)
 
-Installation
+## Table of Contents
 Using npm
 bash
 Copy
@@ -47,7 +47,7 @@ This package is compatible with both plain React Native and Expo projects. In Ex
 For Plain React Native Projects
 If you are not using Expo, the package will fall back to using React Native’s built‑in NativeModules. In both cases, the component automatically loads the correct native module accessor.
 
-Usage
+## Usage
 Basic Usage
 Import the component and use it in your code:
 
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-Styling and Text Injection
+## Styling and Text Injection
 Unlike typical React Native components, custom native components may not automatically render children. Instead, AtomicButton uses a title prop to display text. You can style it using the standard style prop:
 
 jsx
@@ -117,7 +117,7 @@ Copy
     alignItems: 'center',
   }}
 />
-Resetting the Button
+## Resetting the Button
 Since the AtomicButton is designed to disable itself after a single tap (to prevent duplicate submissions), you might need to reset it for testing or reusability. You can call the reset method on the component reference:
 
 jsx
@@ -127,7 +127,7 @@ Copy
     atomicButtonRef.current.reset();
   }
 }} />
-Testing Multiple Submits
+## Testing Multiple Submits
 To simulate a burst of user interactions (for example, due to laggy devices), you can programmatically simulate multiple taps. The component exposes a method called simulateNativeTap() that triggers the native tap simulation.
 
 Here’s a sample function that simulates 20 rapid native taps:
@@ -152,7 +152,8 @@ Copy
 <Button title="Simulate 20 Native Taps" onPress={simulate20NativeTaps} />
 Expected Behavior:
 
-Normal Use: When the button is tapped (manually or via simulation), it should call the onPress callback once, disable itself, and increment the counter only once.
+## Normal Use: 
+When the button is tapped (manually or via simulation), it should call the onPress callback once, disable itself, and increment the counter only once.
 Rapid Tapping: Even if you simulate or spam 20 taps, only the first tap is processed—preventing duplicate submissions.
 Example Code
 Below is a complete sample TestScreen demonstrating all of the features:
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
 How to Download and Get Started
 Download the Package:
 
-You can download the package from npm:
+## You can download the package from npm:
 
 bash
 Copy
